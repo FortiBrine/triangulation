@@ -2,21 +2,37 @@
 
 <?import javafx.scene.layout.*?>
 
-<?import javafx.scene.image.ImageView?>
-
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuItem?>
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:id="rootLayout"
-      fx:controller="me.fortibrine.triangulate.controller.PainterController"
-      minHeight="400.0" minWidth="600.0">
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.CheckMenuItem?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:id="rootLayout"
+            fx:controller="me.fortibrine.triangulate.controller.PainterController"
+            minHeight="500.0" minWidth="900.0">
 
-    <MenuBar>
-        <Menu text="File">
-            <MenuItem onAction="#exit" text="Exit" />
-        </Menu>
-    </MenuBar>
-    <ImageView fx:id="imageView"/>
-</VBox>
+    <top>
+        <MenuBar>
+            <Menu text="Файл">
+                <MenuItem onAction="#exit" text="Вихід" />
+            </Menu>
+            <Menu text="Інтерфейс">
+                <CheckMenuItem selected="true" text="Кольори прапору" onAction="#changeDifferentColor" />
+                <CheckMenuItem selected="true" text="Анімація прапору" onAction="#changeAnimateFlag" />
+                <CheckMenuItem text="Анімація чоловічків" onAction="#changeAnimateImage" />
+            </Menu>
+        </MenuBar>
+    </top>
+
+    <center>
+
+        <BorderPane>
+            <center>
+                <Canvas fx:id="canvas" />
+            </center>
+        </BorderPane>
+
+    </center>
+</BorderPane>

@@ -5,6 +5,8 @@ plugins {
     application
     java
     id("org.openjfx.javafxplugin") version "0.0.13"
+//    id("com.gluonhq.gluonfx-gradle-plugin") version "1.0.22"
+    id("edu.sc.seis.launch4j") version "3.0.5"
 }
 
 group = "me.fortibrine"
@@ -15,14 +17,15 @@ repositories {
 }
 
 dependencies {
-    implementation("org.openpnp:opencv:4.6.0-0")
-    compileOnly("org.projectlombok:lombok:1.18.24")
-    annotationProcessor("org.projectlombok:lombok:1.18.24")
-    implementation("de.erichseifert.vectorgraphics2d:VectorGraphics2D:0.13")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
 }
 
 tasks {
+
+    application {
+        mainClass = "me.fortibrine.triangulate.MainKt"
+    }
+
     withType<JavaCompile>().configureEach {
         options.encoding = "UTF-8"
         sourceCompatibility = "16"
@@ -37,15 +40,27 @@ tasks {
         )
     }
 
-
-    application {
-        mainClass = "me.fortibrine.triangulate.MainKt"
-    }
-
     withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile>().configureEach {
         kotlinOptions {
             jvmTarget = "16"
         }
+    }
+
+    launch4j {
+        outfile = "triangulation.exe"
+        mainClassName = "me.fortibrine.triangulate.MainKt"
+        setJarTask(project.tasks.getByName("jar"))
+    }
+
+    jar {
+        manifest {
+            attributes["Main-Class"] = "me.fortibrine.triangulate.MainKt"
+        }
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+        from (
+            configurations.runtimeClasspath.get().map { if (it.isDirectory) it else zipTree(it) }
+        )
+
     }
 
 }
