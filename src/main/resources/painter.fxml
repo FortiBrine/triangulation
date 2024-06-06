@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuItem?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:id="rootLayout"
+      fx:controller="me.fortibrine.triangulate.controller.PainterController"
+      minHeight="400.0" minWidth="600.0">
+
+    <MenuBar>
+        <Menu text="File">
+            <MenuItem onAction="#exit" text="Exit" />
+        </Menu>
+    </MenuBar>
+    <ImageView fx:id="imageView"/>
+</VBox>
